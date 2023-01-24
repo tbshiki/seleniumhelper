@@ -1,1 +1,1 @@
-# seleniumhelperchrome
+# seleniumhelper
