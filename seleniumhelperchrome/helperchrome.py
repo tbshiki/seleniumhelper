@@ -19,7 +19,7 @@ from pathlib import Path
 # browser_operation.chrome_start(1, 30, 60, options)
 def chrome_start(seconds=1, wait=30, timeout=60, options=None):
     # 絶対パスを取得
-    current_dir = Path(__file__).resolve().parent.parent.parent
+    current_dir = Path(__file__).resolve().parent
 
     if platform.system() == "Windows":  # Windows
         driver = webdriver.Chrome(executable_path=str(current_dir) + "\chromedriver\chromedriver_win32\chromedriver.exe", options=options,)
@@ -96,8 +96,9 @@ def chrome_scrolle(driver, scrolle_xpath, seconds=1):
 
 
 # 指定したフォルダの最新のファイルパスを取得する
+# ダウンロード直後の最新ファイルを取得して待機したいときは before_path を必ず指定すること
 # ダウンロード待機参考:https://note.com/kohaku935/n/n87903c010d28
-def get_latest_file_path(path, timeout_second=30, before_path=""):
+def get_latest_file_path(path, timeout_second=30, before_path=None):
 
     file_path = ""
 
@@ -117,8 +118,12 @@ def get_latest_file_path(path, timeout_second=30, before_path=""):
         if ".crdownload" in file_path or ".tmp" in file_path:  # .crdownload or .tmp are downloading ,so go back to loop and wait rerun
             continue
         else:
-            if before_path == file_path:  # ファイルパスが変わらないので、直前にダウンロードが無いパターン 最新ファイルを取りたいだけ
+            if before_path == None:  # before_pathが未入力なので直前にダウンロードが無いパターン 最新ファイルを取りたいだけ
                 return file_path
+
+            elif before_path == file_path:  # ファイルパスが変わっていないので戻って待機
+                continue
+
             else:  # ファイルパスが変わっているので、ダウンロードがあるパターン
                 file_path = max([os.path.join(path, f) for f in os.listdir(path)], key=os.path.getctime)  # retrieve get the latest flilepath
                 return file_path
