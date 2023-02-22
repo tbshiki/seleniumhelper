@@ -138,3 +138,17 @@ def close_other_current_handle(driver, current_handle):
 
     driver.switch_to.window(current_handle)
     time.sleep(1)
+
+
+def set_location(driver: object, ele: object, y_location: int = 100):
+    """ Set location of element scroll to top of element
+
+    Args:
+        driver (object): chromedriver
+        ele (object): element
+    """
+
+    if ele.location["y"] > y_location:
+        driver.execute_script("window.scrollTo(0, " + str(ele.location["y"] - y_location) + ");")
+    else:
+        driver.execute_script("window.scrollTo(0, 0);")
