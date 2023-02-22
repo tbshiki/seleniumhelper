@@ -9,27 +9,6 @@ import platform
 import time
 import os
 import sys
-from pathlib import Path
-
-# cromedriverを起動
-# browser_operation.chrome_start(1, 30, 60, options)
-def chrome_start(seconds=1, wait=30, timeout=60, options=None):
-    # 絶対パスを取得
-    current_dir = Path(__file__).resolve().parent
-
-    if platform.system() == "Windows":  # Windows
-        driver = webdriver.Chrome(executable_path=str(current_dir) + "\chromedriver\chromedriver_win32\chromedriver.exe", options=options,)
-    elif platform.system() == "Darwin":  # Mac
-        driver = webdriver.Chrome(executable_path=str(current_dir) + "\chromedriver\chromedriver_mac64\chromedriver", options=options,)
-    elif platform.system() == "Linux":  # Linux
-        driver = webdriver.Chrome(executable_path=str(current_dir) + "\chromedriver\chromedriver_linux64\chromedriver", options=options,)
-
-    driver.implicitly_wait(wait)  # 暗黙的な待機・要素が無い場合に最大30秒待機
-    driver.set_page_load_timeout(timeout)  # ページが完全にロードされるまで最大で60秒間待つよう指定
-
-    time.sleep(seconds)
-    return driver
-
 
 # コントロール押しながらクリック
 # browser_operation.click_C(driver, element)
