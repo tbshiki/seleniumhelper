@@ -1,3 +1,3 @@
-from .chrome import *
+from seleniumhelper.chrome import *
 
 __version__ = "0.1"
