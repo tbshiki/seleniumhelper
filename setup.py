@@ -1,11 +1,10 @@
 from setuptools import setup, find_packages
-import seleniumhelper
 
 NAME = "seleniumhelper"
 AUTHOR = "tbshiki"
 AUTHOR_EMAIL = "info@tbshiki.com"
 URL = "https://github.com/tbshiki/seleniumhelper"
-VERSION = seleniumhelper.__version__
+VERSION = "0.1.1"
 PYTHON_REQUIRES = ">=3.9"
 INSTALL_REQUIRES = [
     "selenium>=4.8.0",
