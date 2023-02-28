@@ -7,7 +7,6 @@ from selenium.common.exceptions import TimeoutException
 import platform
 import time
 import os
-import sys
 
 # コントロール押しながらクリック
 # browser_operation.click_C(driver, element)
@@ -40,7 +39,7 @@ class clickC:
             WebDriverWait(driver, 30).until(lambda a: len(a.window_handles) > handles)
         except TimeoutException:
             print("新しいタブが開かずタイムアウトしました")
-            sys.exit(1)
+            return
 
         time.sleep(1)
 
