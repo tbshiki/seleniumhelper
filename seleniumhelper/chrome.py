@@ -49,6 +49,7 @@ class clickC:
         clickC(driver, element)
         driver.switch_to.window(driver.window_handles[-1])
 
+    # コントロール押しながらクリックして新しく開いたタブに移動
     def switchnew(driver, element):
         handle_list_befor = driver.window_handles
 
@@ -59,6 +60,19 @@ class clickC:
         handle_list_new = list(set(handle_list_after) - set(handle_list_befor))
         driver.switch_to.window(handle_list_new[0])
         time.sleep(1)
+
+
+# URLを指定して新しいタブを開いて操作するタブを移動
+def new_tab(driver, url, time_sleep=1):
+    handle_list_befor = driver.window_handles
+
+    driver.execute_script("window.open('" + url + "');")
+    time.sleep(time_sleep)
+
+    handle_list_after = driver.window_handles
+    handle_list_new = list(set(handle_list_after) - set(handle_list_befor))
+    driver.switch_to.window(handle_list_new[0])
+    time.sleep(time_sleep)
 
 
 def chrome_scrolle(driver, scrolle_xpath, seconds=1):
@@ -118,6 +132,7 @@ def close_other_current_handle(driver, current_handle):
     time.sleep(1)
 
 
+# 指定した要素までJavaScriptでスクロールする、指定した要素が画面上部100px以下の場合は画面上部にスクロールする
 def set_location(driver: object, ele: object, y_location: int = 100):
     """ Set location of element scroll to top of element
 
