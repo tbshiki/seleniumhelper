@@ -5,9 +5,6 @@ VERSION = "0.1.1"
 PYTHON_REQUIRES = ">=3.9"
 INSTALL_REQUIRES = [
     "selenium>=4.8.0",
-    "platform",
-    "time",
-    "os",
 ]
 
 AUTHOR = "tbshiki"
