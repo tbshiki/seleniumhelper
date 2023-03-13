@@ -74,6 +74,8 @@ def new_tab(driver, url, time_sleep=1):
     driver.switch_to.window(handle_list_new[0])
     time.sleep(time_sleep)
 
+    return handle_list_new
+
 
 def chrome_scrolle(driver, scrolle_xpath, seconds=1):
     scrolle_point = driver.find_element(By.XPATH, scrolle_xpath)
@@ -99,11 +101,15 @@ def get_latest_file_path(path, timeout_second=30, before_path=None):
         time.sleep(1)  # wait 1sec
 
         if len(os.listdir(path)) != 0:  # if there are files in the folder
-            file_path = max([os.path.join(path, f) for f in os.listdir(path)], key=os.path.getctime)  # get the latest flilepath
+            file_path = max(
+                [os.path.join(path, f) for f in os.listdir(path)], key=os.path.getctime
+            )  # get the latest flilepath
         else:
             file_path = ""  # there are no files in the folder
 
-        if ".crdownload" in file_path or ".tmp" in file_path:  # .crdownload or .tmp are downloading ,so go back to loop and wait rerun
+        if (
+            ".crdownload" in file_path or ".tmp" in file_path
+        ):  # .crdownload or .tmp are downloading ,so go back to loop and wait rerun
             continue
         else:
             if before_path == None:  # before_pathが未入力なので直前にダウンロードが無いパターン 最新ファイルを取りたいだけ
@@ -113,7 +119,9 @@ def get_latest_file_path(path, timeout_second=30, before_path=None):
                 continue
 
             else:  # ファイルパスが変わっているので、ダウンロードがあるパターン
-                file_path = max([os.path.join(path, f) for f in os.listdir(path)], key=os.path.getctime)  # retrieve get the latest flilepath
+                file_path = max(
+                    [os.path.join(path, f) for f in os.listdir(path)], key=os.path.getctime
+                )  # retrieve get the latest flilepath
                 return file_path
 
     return file_path

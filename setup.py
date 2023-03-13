@@ -12,4 +12,13 @@ AUTHOR_EMAIL = "info@tbshiki.com"
 URL = "https://github.com/tbshiki/" + NAME
 
 
-setup(name=NAME, author=AUTHOR, author_email=AUTHOR_EMAIL, url=URL, version=VERSION, python_requires=PYTHON_REQUIRES, install_requires=INSTALL_REQUIRES, packages=find_packages())
+setup(
+    name=NAME,
+    author=AUTHOR,
+    author_email=AUTHOR_EMAIL,
+    url=URL,
+    version=VERSION,
+    python_requires=PYTHON_REQUIRES,
+    install_requires=INSTALL_REQUIRES,
+    packages=find_packages(),
+)

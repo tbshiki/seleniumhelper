@@ -1,1 +1,1 @@
-from .chrome import *
+from seleniumhelper.chrome import *
