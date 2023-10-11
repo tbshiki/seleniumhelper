@@ -89,42 +89,23 @@ def chrome_scrolle(driver, scrolle_xpath, seconds=1):
 # ダウンロード直後の最新ファイルを取得して待機したいときは before_path を必ず指定すること
 # ダウンロード待機参考:https://note.com/kohaku935/n/n87903c010d28
 def get_latest_file_path(path, timeout_second=30, before_path=None):
-
-    file_path = ""
-
     # 指定秒待機して最新ファイルが.crdownload.tmpでないことを確認
-    for i in range(timeout_second + 1):
-        # 指定時間待っても 最新ファイルが確認できない場合 エラーを返す
-        if i >= timeout_second:
-            raise Exception("Csv file cannnot be finished downloading!")
-
+    for _ in range(timeout_second + 1):
         time.sleep(1)  # wait 1sec
 
-        if len(os.listdir(path)) != 0:  # if there are files in the folder
-            file_path = max(
-                [os.path.join(path, f) for f in os.listdir(path)], key=os.path.getctime
-            )  # get the latest flilepath
-        else:
-            file_path = ""  # there are no files in the folder
-
-        if (
-            ".crdownload" in file_path or ".tmp" in file_path
-        ):  # .crdownload or .tmp are downloading ,so go back to loop and wait rerun
+        if not os.listdir(path):
             continue
-        else:
-            if before_path == None:  # before_pathが未入力なので直前にダウンロードが無いパターン 最新ファイルを取りたいだけ
-                return file_path
 
-            elif before_path == file_path:  # ファイルパスが変わっていないので戻って待機
-                continue
+        latest_file_path = max(
+            [os.path.join(path, f) for f in os.listdir(path) if not f.endswith(('.crdownload', '.tmp'))],
+            key=os.path.getctime,
+            default=""
+        )
 
-            else:  # ファイルパスが変わっているので、ダウンロードがあるパターン
-                file_path = max(
-                    [os.path.join(path, f) for f in os.listdir(path)], key=os.path.getctime
-                )  # retrieve get the latest flilepath
-                return file_path
+        if latest_file_path and (before_path is None or latest_file_path != before_path):
+            return latest_file_path
 
-    return file_path
+    raise Exception("Csv file cannnot be finished downloading!") # 指定時間待っても 最新ファイルが確認できない場合 エラーを返す
 
 
 # カレントハンドル以外のハンドル(タブ)を閉じてカレントハンドルに戻す
