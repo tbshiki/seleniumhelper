@@ -3,13 +3,12 @@ from setuptools import setup, find_packages
 NAME = "seleniumhelper"
 VERSION = "0.2"
 PYTHON_REQUIRES = ">=3.9"
-INSTALL_REQUIRES = ["selenium>=4.8.0", "os", "platform", "time"]
+INSTALL_REQUIRES = ["selenium>=4.8.0"]
 
 AUTHOR = "tbshiki"
 AUTHOR_EMAIL = "info@tbshiki.com"
 URL = "https://github.com/tbshiki/" + NAME
 
-# READMEファイルからの長い説明の読み込み
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 

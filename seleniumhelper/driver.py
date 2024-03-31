@@ -105,7 +105,7 @@ def open_new_tab(driver, url, time_sleep=1):
     return new_handles
 
 
-def close_other_tabs(driver, current_tab_handle):
+def close_other_tabs(driver, current_tab_handle=None):
     """
     Closes all browser tabs except for the current tab and switches back to the current tab.
 
@@ -113,9 +113,14 @@ def close_other_tabs(driver, current_tab_handle):
         driver: The WebDriver instance controlling the browser.
         current_tab_handle: The handle of the current tab that should remain open.
     """
+    if current_tab_handle is None:
+        current_tab_handle = driver.current_window_handle
+
     for handle in driver.window_handles:
         if handle != current_tab_handle:
             driver.switch_to.window(handle)
             driver.close()
 
     driver.switch_to.window(current_tab_handle)
+
+    return current_tab_handle
