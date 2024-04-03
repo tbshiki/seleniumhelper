@@ -29,5 +29,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    keywords="selenium, automation, webdriver, helper",
+    keywords="selenium, automation, webdriver, operation",
 )
