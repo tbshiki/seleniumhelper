@@ -1,7 +1,5 @@
-from selenium import webdriver
-
-import time
 import os
+import time
 
 
 def get_latest_file_path(directory, timeout_seconds=30, previous_path=None):
@@ -15,9 +13,6 @@ def get_latest_file_path(directory, timeout_seconds=30, previous_path=None):
 
     Returns:
         The path of the latest file, or raises an exception if the timeout is exceeded.
-
-    Raises:
-        DownloadTimeoutException: If no new file is found within the timeout period.
     """
     end_time = time.time() + timeout_seconds
     while time.time() < end_time:
@@ -31,3 +26,25 @@ def get_latest_file_path(directory, timeout_seconds=30, previous_path=None):
         time.sleep(1)
 
     raise Exception(f"No new file found in {directory} within {timeout_seconds} seconds.")
+
+
+def get_latest_file_after_action(directory, action, timeout_seconds=30):
+    """
+    Executes a download action and finds the latest file in the specified directory.
+
+    Args:
+        directory: The directory to search in.
+        action: A function representing the download action to perform.
+        timeout_seconds: The maximum time to wait for a new file to appear after the action.
+
+    Returns:
+        The path of the latest file, or raises an exception if the timeout is exceeded.
+    """
+    # Get the current latest file before the action
+    latest_file_before_action = get_latest_file_path(directory, timeout_seconds)
+
+    # Perform the download action
+    action()
+
+    # Get the latest file after the action
+    return get_latest_file_path(directory, timeout_seconds, latest_file_before_action)
