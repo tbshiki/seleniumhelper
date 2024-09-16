@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 NAME = "seleniumhelper"
-VERSION = "0.2.1"
+VERSION = "0.2.3"
 PYTHON_REQUIRES = ">=3.9"
 INSTALL_REQUIRES = ["selenium>=4.8.0"]
 
